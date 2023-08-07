@@ -4,11 +4,9 @@ from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
+from config import db, bcrypt
 
-db = SQLAlchemy(metadata=metadata)
+
 # Models go here!
 
 class MenuItem(db.Model, SerializerMixin):
@@ -31,13 +29,20 @@ class AdminUser(db.Model, SerializerMixin):
     __tablename__ = 'adminusers'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    password = db.Column(db.String)
+    username = db.Column(db.String, unique = True)
+    _password_hash = db.Column(db.String)
     
     #add relationship
     sitechanges = db.relationship('SiteChange', backref='adminuser')
     #add serialization
     serialize_rules = ('-sitechanges.adminuser', )
+
+    @validates('username')
+    def validates_username(self, key, username):
+        if username and len(username) > 0:
+            return username
+        else:
+            raise ValueError("User must have a username!")
 
 class SiteChange(db.Model, SerializerMixin):
     __tablename__ = 'sitechanges'
@@ -67,4 +72,3 @@ class SpecialOrder(db.Model, SerializerMixin):
     #add relationship
     menuItem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'))
     #add serialization
-    
