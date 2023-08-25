@@ -1,8 +1,8 @@
-"""fill out models
+"""adding auth
 
-Revision ID: 15db49d85e47
+Revision ID: 34a5036e2842
 Revises: 
-Create Date: 2023-07-26 12:36:11.411425
+Create Date: 2023-08-09 16:56:29.712956
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '15db49d85e47'
+revision = '34a5036e2842'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,14 +21,15 @@ def upgrade():
     op.create_table('adminusers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=True),
-    sa.Column('password', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('_password_hash', sa.String(), nullable=True),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('menuitems',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('type', sa.String(), nullable=True),
-    sa.Column('price', sa.Float(), nullable=True),
+    sa.Column('price', sa.String(), nullable=True),
     sa.Column('img', sa.String(), nullable=True),
     sa.Column('body', sa.String(), nullable=True),
     sa.Column('visible', sa.String(), nullable=True),
