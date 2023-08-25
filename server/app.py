@@ -1,6 +1,6 @@
 from models import db, MenuItem, SiteChange, AdminUser, SpecialOrder
 from flask_migrate import Migrate
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify, session
 from flask_restful import Api, Resource
 from flask_bcrypt import Bcrypt
 import os
@@ -220,40 +220,66 @@ class SiteChanges(Resource):
 
         return response
 
-api.add_resource(SpecialOrders, '/specialorders')
+api.add_resource(SiteChanges, '/sitechanges')
 
-class AdminUsers(Resource):
-    def get(self):
-        adminusers = AdminUser.query.all()
-        adminusers_to_dict = [adminuser.to_dict() for adminuser in adminusers]
-        response = make_response(adminusers_to_dict, 200)
+@app.route("/check_session", methods = ['GET'])
+def check_session():
 
-        return response
+    user_id = session.get('user_id')
 
-    def post(self):
-        data = request.get_json()
+    if user_id:
 
-        try:
-            new_adminuser = AdminUser(
-                username = data['username'],
-                password = data['password'],
-            )
+        # user_row = User.query.filter(User.id == user_id).first()
+        user_row = AdminUser.query.filter(AdminUser.id == session['user_id']).first()
 
-            db.session.add(new_adminuser)
-            db.session.commit()
+        response = make_response(
+            jsonify(user_row.to_dict()),
+            200
+        )
 
-            response = make_response(jsonify(new_adminuser.to_dict()), 201)
+    else:
 
-        except ValueError:
+        response = make_response(
+            {},
+            401
+        )
 
-            response = make_response(
-                {"errors": ["validation errors"]},
-                400
-            )
+    return response
 
-        return response
+@app.route("/login", methods = ['POST'])
+def login():
 
-api.add_resource(SpecialOrders, '/specialorders')
+    username = request.get_json()['username']
+
+    user_row = AdminUser.query.filter(AdminUser.username == username).first()
+
+    if user_row:
+
+        session['user_id'] = user_row.id
+
+        response = make_response(
+            jsonify(user_row.to_dict()), 201
+        )
+
+    else:
+
+        response = make_response(
+            {}, 404
+        )
+
+    return response
+
+@app.route("/logout", methods = ['DELETE'])
+def logout():
+
+    session['user_id'] = None
+
+    response = make_response(
+        {},
+        204
+    )
+
+    return response
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

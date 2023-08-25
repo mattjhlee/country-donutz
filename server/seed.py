@@ -677,14 +677,18 @@ if __name__ == '__main__':
 
         print("seeding admin users")
 
-        adminusers = [
-            AdminUser(
-                username = "demo",
-                password = "DeMo"
-            )
-        ]
+        demo_user = AdminUser (
+            username = 'demo'
+        )
 
-        db.session.add_all(adminusers)
+        db.session.add(demo_user)
+        db.session.commit()
+
+        demo_password = 'dEmO'
+        demo_user.password_hash = demo_password
+
+        db.session.add(demo_user)
+        db.session.commit()
 
         print("seeding site changes")
 

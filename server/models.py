@@ -3,6 +3,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db, bcrypt
 
@@ -22,20 +23,16 @@ class MenuItem(db.Model, SerializerMixin):
 
     #add relationship
     sitechanges = db.relationship('SiteChange', backref='menuitem')
+    specialorders = db.relationship('SpecialOrder', backref='menuitem')
     #add serialization
-    serialize_rules = ('-sitechanges.menuitem', )
+    serialize_rules = ('-sitechanges.menuitem', '-specialorders.menuitem')
 
 class AdminUser(db.Model, SerializerMixin):
     __tablename__ = 'adminusers'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True)
     _password_hash = db.Column(db.String)
-    
-    #add relationship
-    sitechanges = db.relationship('SiteChange', backref='adminuser')
-    #add serialization
-    serialize_rules = ('-sitechanges.adminuser', )
 
     @validates('username')
     def validates_username(self, key, username):
@@ -43,6 +40,21 @@ class AdminUser(db.Model, SerializerMixin):
             return username
         else:
             raise ValueError("User must have a username!")
+        
+    @hybrid_property 
+    def password_hash(self):
+        raise Exception("Hashed password is invisible!")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
+
+    def __repr__(self):
+        return f"Username: {self.username}"
 
 class SiteChange(db.Model, SerializerMixin):
     __tablename__ = 'sitechanges'
@@ -72,3 +84,4 @@ class SpecialOrder(db.Model, SerializerMixin):
     #add relationship
     menuItem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'))
     #add serialization
+    serialize_rules = ('-menuitem.specialorders', )
