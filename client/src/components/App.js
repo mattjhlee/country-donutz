@@ -11,6 +11,14 @@ import Login from "./Login";
 function App() {
     const [menuitems, setMenuitems] = useState([])
 
+    useEffect(() => {
+      fetch("/menuitems")
+        .then((resp) => resp.json())
+        .then((data) => {
+          setMenuitems(data)
+        })
+    }, [])
+
     return (
       <div>
         <nav>
@@ -21,7 +29,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/aboutus' element={<AboutUs />}></Route>
-            <Route path='/menu' element={<Menu />}></Route>
+            <Route path='/menu' element={<Menu menuitems={menuitems} />}></Route>
             <Route path='/specialorder' element={<SpecialOrder />}></Route>
             <Route path='/contactus' element={<ContactUs />}></Route>
             <Route path='/countrydonutzlogintoedit' element={<Login />}></Route>
