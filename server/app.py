@@ -222,6 +222,17 @@ class SiteChanges(Resource):
 
 api.add_resource(SiteChanges, '/sitechanges')
 
+class AdminUsersById(Resource):
+    def get(self, id):
+        adminuser = AdminUser.query.filter(AdminUser.id == id).first()
+
+        if adminuser:
+            return make_response(jsonify(adminuser.to_dict()), 200)
+        else:
+            return make_response({"error": "AdminUser not found"}, 404)
+        
+api.add_resource(AdminUsersById, '/adminusers/<int:id>')
+
 @app.route("/check_session", methods = ['GET'])
 def check_session():
 
