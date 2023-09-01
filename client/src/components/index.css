@@ -1,0 +1,61 @@
+nav img { 
+    width: 200px;
+}
+
+nav span {
+    display: inline-flex;
+    color: #ad2f60;
+    width: fit-content;
+    margin-left: 200px;
+}
+
+.home h1 {
+    width: fit-content;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    color: #39a331;
+}
+
+.home-image {
+    width: 600px;
+    margin-left: 650px;
+}
+
+.menu h1 {
+    width: fit-content;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.menu ul {
+    list-style: none;
+    width: fit-content;
+}
+
+.menuitem {
+    width: 450px;
+    display: inline-grid;
+
+}
+
+.menu h2 {
+    width: fit-content;
+    margin-left: 20px;
+}
+.menu p {
+    margin-left: 40px;
+}
+
+.about {
+    width: 600px;
+    margin-left: 650px;
+    margin-top: 100px;
+}
+
+.aboutus p {
+    width: 650px;
+    margin: auto;
+    margin-top: 50px;
+}
