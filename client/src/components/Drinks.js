@@ -1,6 +1,7 @@
 import React, {useState} from "react";
+import MenuItem from "./MenuItem";
 
-function Drinks(){
+function Drinks({visibleMenuitems}){
 
 }
 
