@@ -1,7 +1,8 @@
 import React, {useState} from "react";
+import MenuItem from "./MenuItem";
 
-function Donuts(){
-
+function Donuts({visibleMenuitems}){
+    
 }
 
 export default Donuts
