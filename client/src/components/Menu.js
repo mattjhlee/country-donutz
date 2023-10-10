@@ -1,101 +1,18 @@
 import React, {useState} from "react";
 import MenuItem from "./MenuItem";
 import Navbar from "./Navbar";
+import Drinks from "./Drinks";
+import Donuts from "./Donuts";
+import IceCream from "./IceCream";
 
 function Menu({menuitems}){
     const visibleMenuitems = menuitems.filter((menuitem) => {
         return menuitem.visible == "true"
     })
     
-    const yeast = visibleMenuitems.filter((item) => {
-        return item.type == "Yeast-Raised Donuts"
-    })
+    
 
-    const mappedYeast = yeast.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const cake = visibleMenuitems.filter((item) => {
-        return item.type == "Cake Donuts"
-    })
-
-    const mappedCake = cake.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const old = visibleMenuitems.filter((item) => {
-        return item.type == "Old Fashioned Donuts"
-    })
-
-    const mappedOld = old.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const buttermilk = visibleMenuitems.filter((item) => {
-        return item.type == "Buttermilk Bar Donuts"
-    })
-
-    const mappedButtermilk = buttermilk.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const filled = visibleMenuitems.filter((item) => {
-        return item.type == "Filled Donuts"
-    })
-
-    const mappedFilled = filled.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const long = visibleMenuitems.filter((item) => {
-        return item.type == "Long John Donuts"
-    })
-
-    const mappedLong = long.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const specialty = visibleMenuitems.filter((item) => {
-        return item.type == "Specialty Donuts"
-    })
-
-    const mappedSpecialty = specialty.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const holes = visibleMenuitems.filter((item) => {
-        return item.type == "Donut Holes"
-    })
-
-    const mappedHoles = holes.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
-
-    const icecream = visibleMenuitems.filter((item) => {
-        return item.type == "Ice Cream"
-    })
-
-    const mappedIcecream = icecream.map((item) => {
-        return (
-            <MenuItem key={item.id} item={item} />
-        )
-    })
+    
 
     const hotDrinks = visibleMenuitems.filter((item) => {
         return item.type == "Hot Drinks"
