@@ -81,6 +81,47 @@ function Donuts({visibleMenuitems}){
             <MenuItem key={item.id} item={item} />
         )
     })
+
+    return (
+        <div className="donuts-list">
+            <h1>Donuts</h1>
+                <div className="donuts">
+                    <h2>Yeast-Raised</h2>
+                    <ul className="yeast">
+                        {mappedYeast}
+                    </ul>
+                    <h2>Cake</h2>
+                    <ul className="cake">
+                        {mappedCake}
+                    </ul>
+                    <h2>Old-Fashioned</h2>
+                    <ul className="old">
+                        {mappedOld}
+                    </ul>
+                    <h2>Buttermilk Bar</h2>
+                    <ul className="buttermilk">
+                        {mappedButtermilk}
+                    </ul>
+                    <h2>Filled</h2>
+                    <ul className="filled">
+                        {mappedFilled}
+                    </ul>
+                    <p>Filling Flavors: Custard, Vanilla, Chocolate, Raspberry, Strawberry, and Lemon </p>
+                    <h2>Long John</h2>
+                    <ul className="long">
+                        {mappedLong}
+                    </ul>
+                    <h2>Specialty</h2>
+                    <ul className="specialty">
+                        {mappedSpecialty}
+                    </ul>
+                    <h2>Donut Holes</h2>
+                    <ul className="holes">
+                        {mappedHoles}
+                    </ul>
+                </div>
+            </div>
+    )
 }
 
 export default Donuts
