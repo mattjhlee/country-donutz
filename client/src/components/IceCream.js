@@ -11,6 +11,18 @@ function IceCream({visibleMenuitems}){
             <MenuItem key={item.id} item={item} />
         )
     })
+
+    return (
+        <div className="icecream-list">
+            <h1>Ice Cream</h1> 
+            <div className="icecream">
+                <h2>Flavors</h2>
+                <ul className="icecreamFlavors">
+                    {mappedIcecream}
+                </ul>
+            </div>
+        </div>
+    )
 }
 
 export default IceCream
