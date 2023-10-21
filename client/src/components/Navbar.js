@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../resources/images/CD-logo.PNG"
 
 function Navbar(){
     return (
         <nav>
             <div>
-                <img src="https://thumbnails-photos.amazon.com/v1/thumbnail/dOVqWCLYR66BnOlv3sMTsg?ownerId=ARF2223FKVU8Q&viewBox=700&groupShareToken=VUJ6gukiRfuFU6UT1NyQng.TdBLcHOVMBSv4EcluJMbfP" />
+                <img src={logo} alt="country-donutz-logo"/>
                 <Link to="/">
                     <span className="home-link">
                     <h3>Home</h3>
